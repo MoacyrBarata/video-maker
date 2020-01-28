@@ -16,8 +16,9 @@ async function robot(content){
 
     function sanitizedContent(content){
         const withoutBlankLinesAndMarkdown = removeBlankLinesAndMarkdown(content.sourceContentOriginal)
+        const withoutDatesInParentheses = removeDatesInParentheses(withoutBlankLinesAndMarkdown)
 
-        console.log(withoutBlankLinesAndMarkdown)
+        console.log(withoutDatesInParentheses)
 
         function removeBlankLinesAndMarkdown(text){
             const allLines = text.split('\n')
@@ -31,6 +32,10 @@ async function robot(content){
 
             return withoutBlankLinesAndMarkdown.join(' ')
         }
+    }
+
+    function removeDatesInParentheses(text) {
+        return text.replace(/\((?:\([^()]*\)|[^()])*\)/gm, '').replace(/  /g,' ')
     }
 }
 

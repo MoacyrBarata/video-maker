@@ -3,7 +3,7 @@ const algorithmiaApiKey = require('../credentials/algorithmia.json').apiKey
 
 async function robot(content){
     await fetchContentFromWikipedia(content)
-    //sanitizedContent(content)
+    sanitizedContent(content)
     //breakContentIntoSentences(content)
     async function fetchContentFromWikipedia(content){
         const algorithmiaAuthenticated = algorithmia(algorithmiaApiKey)
@@ -21,13 +21,14 @@ async function robot(content){
 
         function removeBlankLinesAndMarkdown(text){
             const allLines = text.split('\n')
-            
+
             const withoutBlankLinesAndMarkdown = allLines.filter((line) => {
-                if (line.trim().length == 0 || line.trim().startWith('=')){
-                    return false
+                if (line.trim().length === 0 || line.trim().startsWith('=')) {
+                return false
                 }
                 return true
             })
+
             return withoutBlankLinesAndMarkdown.join(' ')
         }
     }
